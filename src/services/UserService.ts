@@ -13,7 +13,6 @@ export default class UserService {
       });
 
       await AppDataSource
-        .getRepository(User)
         .createQueryBuilder()
         .insert()
         .into(User)

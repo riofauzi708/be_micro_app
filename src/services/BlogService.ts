@@ -24,7 +24,8 @@ export default class BlogService {
                 description: reqBody.description
             });
 
-            await AppDataSource.createQueryBuilder()
+            await AppDataSource
+                .createQueryBuilder()
                 .insert()
                 .into(Blog)
                 .values(reqBody)
@@ -39,18 +40,18 @@ export default class BlogService {
     }
     static async update(id: number, title: string, description: string): Promise<Blog | undefined> {
         try {
-          const userRepository = AppDataSource.getRepository(Blog);
+          const blogRepository = AppDataSource.getRepository(Blog);
     
-          const blog = await userRepository.findOne({ where: { id } });
+          const blog = await blogRepository.findOne({ where: { id } });
     
           if (!blog) {
-            throw new Error("User not found");
+            throw new Error("Blog not found");
           }
     
           blog.title = title;
           blog.description = description;
     
-          const updatedBlog = await userRepository.save(blog);
+          const updatedBlog = await blogRepository.save(blog);
     
           return updatedBlog;
         } catch (error) {
@@ -60,15 +61,15 @@ export default class BlogService {
     
       static async delete(id: number): Promise<void> {
         try {
-          const userRepository = AppDataSource.getRepository(Blog);
+          const blogRepository = AppDataSource.getRepository(Blog);
     
-          const blog = await userRepository.findOne({ where: { id } });
+          const blog = await blogRepository.findOne({ where: { id } });
     
           if (!blog) {
-            throw new Error("User not found");
+            throw new Error("Blog not found");
           }
     
-          await userRepository.remove(blog);
+          await blogRepository.remove(blog);
         } catch (error) {
           throw error;
         }

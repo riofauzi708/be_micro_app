@@ -39,4 +39,42 @@ export default class PartaiService {
           throw error;
         }
       }
+      static async update(id: number, partaiName: string, leader: string, vision: string, address: string): Promise<Partai | undefined> {
+        try {
+          const partaiRepository = AppDataSource.getRepository(Partai);
+    
+          const partai = await partaiRepository.findOne({ where: { id } });
+    
+          if (!partai) {
+            throw new Error("Partai not found");
+          }
+
+          partai.partaiName = partaiName,
+          partai.leader = leader,
+          partai.vision = vision,
+          partai.address = address
+    
+          const updatedPartai = await partaiRepository.save(partai);
+    
+          return updatedPartai;
+        } catch (error) {
+          throw error;
+        }
+      }
+    
+      static async delete(id: number): Promise<void> {
+        try {
+          const partaiRepository = AppDataSource.getRepository(Partai);
+    
+          const partai = await partaiRepository.findOne({ where: { id } });
+    
+          if (!partai) {
+            throw new Error("Partai not found");
+          }
+    
+          await partaiRepository.remove(partai);
+        } catch (error) {
+          throw error;
+        }
+      }
 }

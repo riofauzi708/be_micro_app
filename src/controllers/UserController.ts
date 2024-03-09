@@ -1,14 +1,19 @@
 import { Request, Response } from "express";
 import UserService from "../services/UserService";
 import { User } from "../entity/User";
+import { UserValidator } from "../utils/validator/User";
 
 export default new class UserController {
     async create(req: Request, res: Response): Promise<Response> {
         try {
             const data = req.body;
+
+            const {error, value} = UserValidator.validate(data)
+            if(error) return res.status(400).json({message: error.details[0].message})
+
             const user = await UserService.create(data);
 
-            return res.status(201).json(user);
+            return res.status(201).json(data);
         } catch (error) {
             return res.status(500).json({ message: error });
         }

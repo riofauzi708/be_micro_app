@@ -38,4 +38,42 @@ export default class PaslonService {
           throw error;
         }
       }
+      static async update(id: number, paslonName: string, number: number, vision: string): Promise<Paslon | undefined> {
+        try {
+          const paslonRepository = AppDataSource.getRepository(Paslon);
+    
+          const paslon = await paslonRepository.findOne({ where: { id } });
+    
+          if (!paslon) {
+            throw new Error("Paslon not found");
+          }
+
+          paslon.paslonName = paslonName,
+          paslon.number = number,
+          paslon.vision = vision
+    
+          const updatedPaslon = await paslonRepository.save(paslon);
+    
+          return updatedPaslon;
+        } catch (error) {
+          throw error;
+        }
+      }
+    
+      static async delete(id: number): Promise<void> {
+        try {
+          const paslonRepository = AppDataSource.getRepository(Paslon);
+    
+          const paslon = await paslonRepository.findOne({ where: { id } });
+    
+          if (!paslon) {
+            throw new Error("Paslon not found");
+          }
+    
+          await paslonRepository.remove(paslon);
+        } catch (error) {
+          throw error;
+        }
+      }
+    
 }

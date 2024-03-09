@@ -19,10 +19,14 @@ Route.get('/paslons', PaslonController.find)
 Route.get('/partais', PartaiController.find)
 
 Route.put('/user/:id', UserController.update)
-Route.put('/blog', BlogController.update)
+Route.put('/blog/:id', BlogController.update)
+Route.put('/paslon/:id', PaslonController.update)
+Route.put('/partai/:id', PartaiController.update)
 
 Route.delete('/user/:id', UserController.delete)
 Route.delete('/blog', BlogController.delete)
+Route.delete('/paslon/:id', PaslonController.delete)
+Route.delete('/partai/:id', PartaiController.delete)
 
 
 export default Route
