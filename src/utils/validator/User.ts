@@ -1,9 +1,12 @@
 import Joi from "joi";
 
 export const UserValidator = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required()
-})
+  fullname: Joi.string().required(),
+  address: Joi.string().required(),
+  gender: Joi.string().valid('male', 'female').required(),
+  username: Joi.string().required(),
+  password: Joi.string().required()
+});
 
 // export const UserValidator = Joi.array().items(
 //   Joi.object({

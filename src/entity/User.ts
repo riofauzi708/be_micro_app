@@ -16,6 +16,15 @@ export class User {
     @Column()
     password: string
 
+    @Column()
+    fullname: string
+
+    @Column()
+    address: string
+
+    @Column()
+    gender: string
+
     @OneToMany(() => Blog, (blog) => blog.user)
     blog: Blog
 

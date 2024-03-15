@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm"
 import { User } from "./User"
 import { Vote } from "./Vote"
 
@@ -12,7 +12,7 @@ export class Paslon {
     paslonName: string
     
     @Column()
-    number: number
+    number: string
     
     @Column()
     vision: string
@@ -20,6 +20,6 @@ export class Paslon {
     @ManyToOne(() => User, (user) => user.paslon)
     user: User
 
-    @ManyToOne(() => Vote, (vote) => vote.paslon)
+    @OneToMany(() => Vote, (vote) => vote.paslon)
     vote: Vote
 }

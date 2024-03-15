@@ -7,19 +7,16 @@ export default class UserService {
     try {
       const repository = AppDataSource.getRepository(User);
 
-      const user = repository.create({
-        username: reqBody.username,
-        password: reqBody.password
-      });
+      const user = new User();
+      user.fullname = reqBody.fullname;
+      user.address = reqBody.address;
+      user.gender = reqBody.gender;
+      user.username = reqBody.username;
+      user.password = reqBody.password;
 
-      await AppDataSource
-        .createQueryBuilder()
-        .insert()
-        .into(User)
-        .values(reqBody)
-        .execute();
+      await repository.save(user);
 
-      console.log(reqBody);
+      console.log(user);
 
       return user;
     } catch (error) {
